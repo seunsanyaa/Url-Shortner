@@ -11,16 +11,11 @@ const mongoConnect= require('./config/database');
 mongoConnect()
 const Url = require('./models/Url')
 const PORT = process.env.PORT || 5000;
-const baseUrl='http://localhost:5000'
+const baseUrl= "localhost:5000"
 app.use(express.json({
     extended: false
 }));
 app.use('/', require('./routes/redirect'))
-
-interface ErrorHandling {
-    success: boolean;
-    error?: { message: string };
-}
 
 async function shorten(url: string) {
 
@@ -57,12 +52,14 @@ process.env.URL=longUrl;
 
 
 
-shorten('https://google.com').then(e =>
+shorten('https://google.com').then(url =>
     {
-        console.log(e)
+        console.log(url)
     }
 )
 
 
 
 app.listen(PORT, () => console.log(`server started, listening PORT ${PORT}`));
+
+module.exports=shorten

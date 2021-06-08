@@ -17,7 +17,7 @@ const mongoConnect = require('./config/database');
 mongoConnect();
 const Url = require('./models/Url');
 const PORT = process.env.PORT || 5000;
-const baseUrl = 'http://localhost:5000';
+const baseUrl = "localhost:5000";
 app.use(express.json({
     extended: false
 }));
@@ -46,7 +46,8 @@ function shorten(url) {
         }
     });
 }
-shorten('https://google.com').then(e => {
-    console.log(e);
+shorten('https://google.com').then(url => {
+    console.log(url);
 });
 app.listen(PORT, () => console.log(`server started, listening PORT ${PORT}`));
+module.exports = shorten;

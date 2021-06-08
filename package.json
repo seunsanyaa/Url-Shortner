@@ -1,6 +1,6 @@
 {
-  "name": "urlshortner",
-  "version": "1.0.0",
+  "name": "@seunsanyaa/urlshortner",
+  "version": "1.0.3",
   "description": "Url Shortner Library",
   "main": "index.js",
   "scripts": {
