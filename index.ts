@@ -5,30 +5,26 @@ const app = express();
 
 const validUrl = require('valid-url')
 const shortid = require('shortid')
-const dotenv = require('dotenv')
-// creating express route handler
-const router = express.Router()
+require('dotenv');
 const mongoConnect= require('./config/database');
 
 mongoConnect()
-// import the Url database model
 const Url = require('./models/Url')
 const PORT = process.env.PORT || 5000;
-const baseUrl = 'http://localhost:5000'
+const baseUrl='http://localhost:5000'
+app.use(express.json({
+    extended: false
+}));
+app.use('/', require('./routes/redirect'))
+
 interface ErrorHandling {
     success: boolean;
     error?: { message: string };
 }
 
-async function shorten(url: string
-) {
+async function shorten(url: string) {
 
-    if (!validUrl.isUri(baseUrl)) {
-
-        // return res.status(401).json('Invalid base URL')
-        console.log('Invalid base URL')
-
-    }
+let longUrl=url;
 
     const urlCode = shortid.generate()
 
@@ -39,16 +35,17 @@ async function shorten(url: string
             const shortUrl = baseUrl + '/' + urlCode
 
             const theUrl = new Url({
-                url,
+                longUrl,
                 shortUrl,
                 urlCode,
                 date: new Date()
             })
             await theUrl.save()
 
-
+process.env.URL=longUrl;
             console.log(theUrl)
             return shortUrl
+
         } catch (err) {
             console.log(err)
 
@@ -56,71 +53,11 @@ async function shorten(url: string
 
 
     }
-    // return x + y;
 }
 
 
 
-// @route    POST /api/url/shorten
-// @description     Create short URL
-
-//
-//
-// router.post('/shorten', async (req, res) => {
-//     const {
-//         longUrl
-//     } = req.body // destructure the longUrl from req.body.longUrl
-//
-//     // check base url if valid using the validUrl.isUri method
-//     if (!validUrl.isUri(baseUrl)) {
-//         return res.status(401).json('Invalid base URL')
-//     }
-//
-//     // if valid, we create the url code
-//     const urlCode = shortid.generate()
-//
-//     // check long url if valid using the validUrl.isUri method
-//     if (validUrl.isUri(longUrl)) {
-//         try {
-//             /* The findOne() provides a match to only the subset of the documents
-//             in the collection that match the query. In this case, before creating the short URL,
-//             we check if the long URL was in the DB ,else we create it.
-//             */
-//             let url = await Url.findOne({
-//                 longUrl
-//             })
-//
-//             // url exist and return the respose
-//             if (url) {
-//                 res.json(url)
-//             } else {
-//                 // join the generated short code the the base url
-//                 const shortUrl = baseUrl + '/' + urlCode
-//
-//                 // invoking the Url model and saving to the DB
-//                 url = new Url({
-//                     longUrl,
-//                     shortUrl,
-//                     urlCode,
-//                     date: new Date()
-//                 })
-//                 await url.save()
-//                 res.json(url)
-//             }
-//         }
-//             // exception handler
-//         catch (err) {
-//             console.log(err)
-//             res.status(500).json('Server Error')
-//         }
-//     } else {
-//         res.status(401).json('Invalid longUrl')
-//     }
-// })
-
-
-
-shorten('http://seunsanyaa.com').then(e =>
+shorten('https://google.com').then(e =>
     {
         console.log(e)
     }

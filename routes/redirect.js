@@ -1,0 +1,35 @@
+
+const express = require('express')
+
+const router = express.Router()
+const Url = require('../models/Url')
+
+
+
+
+
+
+
+router.get('/:code',
+
+    async (req, res)  => {
+    try {
+        const theUrl = await Url.findOne({
+            urlCode: req.params.code
+        })
+        if (theUrl) {
+            return res.redirect(process.env.URL)
+        } else {
+            return res.status(404).json('No URL Found')
+        }
+
+    }
+    catch (err) {
+        console.error(err)
+        res.status(500).json('Server Error')
+    }
+})
+
+
+
+module.exports = router
