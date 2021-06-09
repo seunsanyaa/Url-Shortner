@@ -1,9 +1,9 @@
 This library allows you to quickly and easily use the URL-Shortner nodejs library.
 <h1>Installing</h1>
 using npm<br><br>
-<b> $ npm install urlshortner</b><br><br>
+<b> $ npm install @seunsanyaa/urlshortner</b><br><br>
 using yarn<br><br>
-<b> $ yarn install urlshortner</b><br><br>
+<b> $ yarn install @seunsanyaa/urlshortner</b><br><br>
 
 <h1>Example</h1>
 
