@@ -11,7 +11,7 @@ const mongoConnect= require('./config/database');
 mongoConnect()
 const Url = require('./models/Url')
 const PORT = process.env.PORT || 5000;
-const baseUrl= "localhost:5000"
+const baseUrl= process.env.PORT
 app.use(express.json({
     extended: false
 }));
