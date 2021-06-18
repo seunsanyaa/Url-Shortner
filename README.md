@@ -11,7 +11,7 @@ using yarn<br><br>
 
 In order to gain the TypeScript typings (for intellisense / autocomplete) while using CommonJS imports with require() use the following approach:<br><br>
 
-const shorten = require('@seunsanyaa/urlshortnerr');
+const shorten = require('@seunsanyaa/urlshortner');
 
 
 shorten('your long url').then(newurl =>
